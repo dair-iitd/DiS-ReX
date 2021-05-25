@@ -39,6 +39,59 @@ The dataset format is same as presented in [OpenNRE](https://github.com/thunlp/O
 
 The file named `rel2id.txt` contains relation types and the corresponding indices we use during training our model.
 
+# DS-RE Models
+
+We have also uploaded code to reproduce results in the paper "DiS-ReX: A Multilingual Dataset for Distantly Supervised Relation Extraction". It also has the implementation of the 3 baseline models used to obtain results on the dataset.
+
+First, 2 datasets - "RELX-Distant" and "DiSReX" need to be downloade from the following link :-
+
+```
+https://drive.google.com/file/d/1yVZIJKeRyuLIfDCwxJb8zxHISw4pcvu8/view?usp=sharing
+```
+
+Unzip the file and copy the folders "disrex_dataset" and "relx_distant" into this folder. After copying files in this folder woul be as follows :
+
+```
+
+disrex_dataset/
+mBERT_Att/
+mnre/
+PCNN_Att/
+relx_distant/
+```
+
+In order to run any of the mBERT+ATT or MNRE+ATT on disrex dataset, go to the respective directory and run the following command :-
+
+```
+python main.py
+
+
+```
+In order to run mBERT+Att on relx_distant, go to the respective directory and run the following command :-
+
+```
+python main.py --train_file ../relx_distant/relx_train.txt --val_file ../relx_distant/relx_val.txt --test_file ../relx_distant/relx_test.txt --rel2id_file ../relx_distant/relx_rel2id.txt
+```
+
+To run PCNN , you first need to download the multilingual glove embedings from this link :--
+
+```
+
+https://drive.google.com/file/d/16KbJCTvTIC6hXEs527uOzJoPBE4cazcI/view?usp=sharing
+
+```
+
+Unzip and copy the folder into the PCNN_Att directory. Then run one of the following commands based on language:
+
+```
+     English : python main_multi.py --train_file ../disrex_dataset/english/train.txt --val_file ~/scratch/disrex_dataset/unseen_new/english/val.txt --test_file ~/scratch/disrex_dataset/unseen_new/english/test.txt --bag_size 2 --rel2id_file ~/scratch/disrex_dataset/rel2id.txt --metric auc --max_epoch 60 --ckpt disrex_pcnn_shakuntala_only_english_unseen --embedding_file multilingual_glove/multilingual_embeddings.en --only_test --out_file predictions/pred_out_english.tsv
+     Spanish : python main_multi.py --train_file ../disrex_dataset/spanish/train.txt --val_file ../disrex_dataset/spanish/val.txt --test_file ../disrex_dataset/spanish/test.txt --bag_size 2 --rel2id_file ../disrex_dataset/rel2id.txt --metric auc --max_epoch 2 --ckpt pcnn_spanish_baseline --embedding_file multilingual_glove/multilingual_embeddings.es
+     French : python main_multi.py --train_file ../disrex_dataset/french/train.txt --val_file ../disrex_dataset/french/val.txt --test_file ../disrex_dataset/french/test.txt --bag_size 2 --rel2id_file ../disrex_dataset/rel2id.txt --metric auc --max_epoch 2 --ckpt pcnn_french_baseline --embedding_file multilingual_glove/multilingual_embeddings.fr
+     German : python main_multi.py --train_file ../disrex_dataset/german/train.txt --val_file ../disrex_dataset/german/val.txt --test_file ../disrex_dataset/german/test.txt --bag_size 2 --rel2id_file ../disrex_dataset/rel2id.txt --metric auc --max_epoch 2 --ckpt pcnn_german_baseline --embedding_file multilingual_glove/multilingual_embeddings.de
+
+```
+Alternatively, you can run the bash script pcnn_langs_unseen.sh which runs the above 4 commands in sequence.
+
 # Cite
 The dataset is a part of the pre-print [DiS-ReX: A Multilingual Dataset for Distantly Supervised Relation Extraction](https://arxiv.org/abs/2104.08655). We also release our baseline results using mBERT+Bag Attention and present it in our paper. If you use or extend our work, please cite the following paper:
 ```
