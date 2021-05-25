@@ -128,7 +128,8 @@ Now we have a file "spanish_sentences_wiki.txt" which has one sentence on each l
 
 Now running build_dataset.py with appropriate command line arguments, we can get the labelled dataset.Example of a command is :
 
- ```python build_dataset.py --entities_file arabic/ent.txt --relations_file arabic/rel.txt --kg_file arabic/kg.tsv --text_file arabic_sentences.txt  --num_sentences 10000
+ ```
+ python build_dataset.py --entities_file arabic/ent.txt --relations_file arabic/rel.txt --kg_file arabic/kg.tsv --text_file arabic_sentences.txt  --num_sentences 10000
   ```
 
 # Cite
