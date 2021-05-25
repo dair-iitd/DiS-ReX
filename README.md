@@ -92,6 +92,45 @@ Unzip and copy the folder into the PCNN_Att directory. Then run one of the follo
 ```
 Alternatively, you can run the bash script pcnn_langs_unseen.sh which runs the above 4 commands in sequence.
 
+# Creating the dataset
+
+To build the dataset you first need to download the raw wikipedia texts from wikimedia.dumps.org using command :--
+ ```
+ wget --no-check-certificate https://dumps/wikimedia.org/eswiki/latest/eswiki-latest-pages-articles.xml.bz2
+ ```
+Then we need to download the knowledge base and process it into entities file , relations file and kg file. The KG file contains triples of the form (ent1 , rel , ent2) seperated by tabs on the same line. 
+
+To download kg , use command :--
+ ```
+ wget --no-check-certificate http://downloads.dbpedia.org/3.9/es/mappingbased_properties_es_nt.bz2
+  ```
+
+This needs to be decompressed using command :--
+ ```
+ bzip2 -d mappingbased_properties_es_nt.bz2
+ ```
+Then we need to process it using the script processKG.py
+
+ ```
+ python processKG.py mappingbased_properties_es_nt <ent_file_path> <rel_file_path> <kg_file_path>
+  ```
+
+Now we have the KG in proper processed format
+
+Next, we need to process the raw wikipedia texts and convert into sentences .
+
+Run the following 2 commands :--
+ ```
+ python get_wiki_articles.py eswiki-latest-pages-articles.xml.bz2 spanish_articles.txt
+ python getSentences.py spanish_articles spanish_sentences_wiki.txt
+ ```
+Now we have a file "spanish_sentences_wiki.txt" which has one sentence on each line.
+
+Now running build_dataset.py with appropriate command line arguments, we can get the labelled dataset.Example of a command is :
+
+ ```python build_dataset.py --entities_file arabic/ent.txt --relations_file arabic/rel.txt --kg_file arabic/kg.tsv --text_file arabic_sentences.txt  --num_sentences 10000
+  ```
+
 # Cite
 The dataset is a part of the pre-print [DiS-ReX: A Multilingual Dataset for Distantly Supervised Relation Extraction](https://arxiv.org/abs/2104.08655). We also release our baseline results using mBERT+Bag Attention and present it in our paper. If you use or extend our work, please cite the following paper:
 ```
