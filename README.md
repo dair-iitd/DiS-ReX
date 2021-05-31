@@ -43,7 +43,7 @@ The file named `rel2id.txt` contains relation types and the corresponding indice
 
 We have also uploaded code to reproduce results in the paper "DiS-ReX: A Multilingual Dataset for Distantly Supervised Relation Extraction". It also has the implementation of the 3 baseline models used to obtain results on the dataset.
 
-First, 2 datasets - "RELX-Distant" and "DiSReX" need to be downloade from the following link :-
+First, training, testing and validation splits (used in the paper) of the two datasets - "RELX-Distant" and "DiS-ReX" need to be downloaded from the following link :-
 
 ```
 https://drive.google.com/file/d/1yVZIJKeRyuLIfDCwxJb8zxHISw4pcvu8/view?usp=sharing
